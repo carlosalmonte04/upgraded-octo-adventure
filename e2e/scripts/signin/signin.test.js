@@ -1,3 +1,4 @@
+import {element} from 'detox';
 import SignInPage from 'e2e/pages/Signin/SignIn.page';
 
 import Assert from 'e2e/assertions';

@@ -1,3 +1,5 @@
+import {device, element, waitFor} from 'detox';
+
 export const launch = async uninstall => {
   const notifications = 'NO';
   const location = 'always';

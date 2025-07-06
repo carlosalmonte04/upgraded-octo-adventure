@@ -1,3 +1,4 @@
+import {expect, element} from 'detox';
 import Actions from '../actions';
 
 export const isVisible = async (matcher, timeout = 5000) => {

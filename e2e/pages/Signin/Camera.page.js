@@ -1,3 +1,4 @@
+import {by} from 'detox';
 import testIDs from 'src/test-ids';
 
 class CameraPage {

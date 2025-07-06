@@ -5,7 +5,6 @@ import {
   Camera as CameraComponent,
   useCameraDevices,
   TakePhotoOptions,
-  TakeSnapshotOptions,
 } from 'react-native-vision-camera';
 import {Camera} from 'src/components/Camera';
 import routes from 'src/routes';
@@ -13,13 +12,11 @@ import type {RootStackParamList} from 'src/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, routes.Camera>;
 
-export function CameraScreen(props: Props) {
+export function CameraScreen(_props: Props) {
   const devices = useCameraDevices();
   const camera = React.useRef<CameraComponent>(null);
   const [photo, setPhoto] = React.useState<string | null>(null);
-  const takePhotoOptions = React.useMemo<
-    TakePhotoOptions & TakeSnapshotOptions
-  >(
+  const takePhotoOptions = React.useMemo<TakePhotoOptions>(
     () => ({
       photoCodec: 'jpeg',
       qualityPrioritization: 'speed',
@@ -28,27 +25,29 @@ export function CameraScreen(props: Props) {
     }),
     [],
   );
-  const device = devices.back;
+  const device = devices.find(cam => cam.position === 'back');
 
   const onTakePhoto = React.useCallback(async () => {
     try {
-      const photo =
+      const takenPhoto =
         Platform.OS === 'ios'
           ? await camera.current?.takePhoto(takePhotoOptions)
           : await camera.current?.takeSnapshot(takePhotoOptions);
-      if (photo) {
-        setPhoto('file://' + photo.path);
+      if (takenPhoto) {
+        setPhoto('file://' + takenPhoto.path);
       }
     } catch (err) {
       console.log('**LOG** photo error:', err);
     }
-  }, []);
+  }, [camera, takePhotoOptions]);
 
   const removePhoto = React.useCallback(() => {
     setPhoto(null);
   }, []);
 
-  if (device == null) return null;
+  if (device == null) {
+    return null;
+  }
 
   return (
     <Camera

@@ -1,7 +1,8 @@
 module.exports = {
   presets: [
-    'module:metro-react-native-babel-preset',
+    '@react-native/babel-preset',
     '@babel/preset-typescript',
+    '@babel/preset-flow',
   ],
   plugins: [
     ['nativewind/babel'],
@@ -9,8 +10,13 @@ module.exports = {
       'module-resolver',
       {
         root: ['./'],
-        extensions: ['.js', '.ts', '.tsx'],
+        extensions: ['.js', '.ts', '.tsx', '.flow'],
       },
     ],
   ],
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel'],
+    },
+  },
 };

@@ -49,7 +49,8 @@ export const Camera = React.forwardRef<CameraView, Props>(
           onPress={photo ? removePhoto : onTakePhoto}
           className={`bg-[${
             photo ? '#888' : '#F00'
-          }] self-center w-[${shutterSize}px] h-[${shutterSize}px] rounded-[${shutterSize}px]`}></Touchable>
+          }] self-center w-[${shutterSize}px] h-[${shutterSize}px] rounded-[${shutterSize}px]`}
+        />
       </View>
     );
   },

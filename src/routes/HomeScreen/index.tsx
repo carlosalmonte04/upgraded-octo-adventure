@@ -1,10 +1,11 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View} from 'src/components/common';
-import {useGoogleSignIn} from 'src/hooks';
+import {useGoogleSignIn} from 'src/hooks/googleSignin';
 import {SignInForm} from 'src/components/SignIn/SignInForm';
 import {TempActions} from 'src/components/Temp/TempActions';
 import routes from 'src/routes';
+import {StyleSheet} from 'react-native';
 
 import type {RootStackParamList} from 'src/types';
 
@@ -18,10 +19,10 @@ export function HomeScreen(props: Props) {
 
   const navigateToCamera = React.useCallback(() => {
     props.navigation.navigate(routes.Camera);
-  }, []);
+  }, [props.navigation]);
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={styles.container}>
       <SignInForm
         isSignedIn={!!userInfo.userInfo}
         username={username}
@@ -39,3 +40,11 @@ export function HomeScreen(props: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
